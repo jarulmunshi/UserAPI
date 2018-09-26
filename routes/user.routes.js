@@ -56,6 +56,7 @@ route.post('/login',(req,res)=>{
     })
 })
 route.get('/',(req,res)=>{
+    console.log("Route")
     get((err,result)=>{
         if(err){
             res.statusCode=400;

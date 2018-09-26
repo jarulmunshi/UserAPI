@@ -18,9 +18,7 @@ exports.insert=(body,path,done)=>{
     })
 }
 exports.post1 = (body,done) =>{
-    //console.log(body);
     user.find({email:body.email,password:body.password}).then(d=>{
-        //var pass1=bcrypt.compareSync(body.password,d.password);
         console.log(Object.getOwnPropertyNames(d).length);
         if(Object.getOwnPropertyNames(d).length !==1){
             // var token = jwt.sign({id:d.password},'secret',{
@@ -39,7 +37,9 @@ exports.post1 = (body,done) =>{
     })
 }
 exports.get = (done) =>{
+    console.log("Hi");
     user.find().then((d)=>{
+        console.log(d)
         done(null,d);
     }).catch((err)=>{
         done(err);
