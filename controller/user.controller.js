@@ -1,7 +1,8 @@
 var {d}=require('../config/database');
 var user=require('../schema/user.schema');
-
+var jwt = require('jsonwebtoken');
 exports.insert=(body,path,done)=>{
+    console.log("CONTROLLER");
     body.imageName=path;
     var newUser=new user({
         name:body.name,
@@ -13,6 +14,27 @@ exports.insert=(body,path,done)=>{
     newUser.save().then((d)=>{
         done(null,d);
     }).catch((err)=>{
+        done(err);
+    })
+}
+exports.post1 = (body,done) =>{
+    //console.log(body);
+    user.find({email:body.email,password:body.password}).then(d=>{
+        //var pass1=bcrypt.compareSync(body.password,d.password);
+        console.log(Object.getOwnPropertyNames(d).length);
+        if(Object.getOwnPropertyNames(d).length !==1){
+            // var token = jwt.sign({id:d.password},'secret',{
+            //     expiresIn:86400
+            // });
+            // d.token=token;
+            done(null,d);
+        }
+        else {
+            console.log("ERROR");
+            done(null,null);
+        }
+
+    }).catch(err=>{
         done(err);
     })
 }

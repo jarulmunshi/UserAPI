@@ -3,7 +3,7 @@ const route=router();
 var multer=require('multer');
 var fs=require('fs');
 var upload = multer({dest:'uploads/'});
-const {insert,get,get1,del,up} = require('../controller/user.controller');
+const {insert,post1,get,get1,del,up} = require('../controller/user.controller');
 
 var storage = multer.diskStorage({
     destination: (req, file, cb)=> {
@@ -18,24 +18,42 @@ var upload = multer({storage: storage}).any();
 route.post('/',(req,res)=>{
     console.log(req.body);
     upload(req,res,(error)=>{
-        //var contents=fs.readFileSync(req.body.imageName,'utf-8');
-        //console.log("Contents"+contents);
-        // insert(req.body,req.body.imageName,(err,result)=>{
-        //     if(err){
-        //         res.statusCode=400;
-        //         res.json(err);
-        //     }
-        //     else if(result == null){
-        //         res.statusCode=404;
-        //         res.json({msg:"error"});
-        //     }
-        //     else{
-        //         res.statusCode=200;
-        //         res.json(result);
-        //     }
-        // })
+        insert(req.body,req.body.imageName,(err,result)=>{
+            if(err){
+                res.statusCode=400;
+                res.json(err);
+            }
+            else if(result == null){
+                res.statusCode=404;
+                res.json({msg:"error"});
+            }
+            else{
+                res.statusCode=200;
+                res.json(result);
+            }
+        })
     })
 
+})
+route.post('/login',(req,res)=>{
+    post1(req.body,(err,result)=>{
+        if (err){
+            res.statusCode=400;
+            res.json(err);
+            console.log(err);
+        }
+        else if(result == null){
+            res.statusCode=404;
+            res.json({msg:"NOT VALID"});
+            console.log("Not Valid");
+        }
+        else {
+            res.statusCode=200;
+            //res.setHeader(token,result.token);
+            res.json(result.token);
+            console.log(result.token);
+        }
+    })
 })
 route.get('/',(req,res)=>{
     get((err,result)=>{
