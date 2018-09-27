@@ -89,20 +89,21 @@ route.get('/:id',(req,res)=>{
     })
 })
 route.delete('/:id',(req,res)=>{
-    del(req.params.id,(err,result)=>{
-        if(err){
-            res.statusCode=400;
-            res.json(err);
-        }
-        else if(result == null){
-            res.statusCode=404;
-            res.json({msg:"NOT DELETE"});
-        }
-        else {
-            res.statusCode=200;
-            res.json(result);
-        }
-    })
+    console.log(req.params.id);
+    // del(req.params.id,(err,result)=>{
+    //     if(err){
+    //         res.statusCode=400;
+    //         res.json(err);
+    //     }
+    //     else if(result == null){
+    //         res.statusCode=404;
+    //         res.json({msg:"NOT DELETE"});
+    //     }
+    //     else {
+    //         res.statusCode=200;
+    //         res.json(result);
+    //     }
+    // })
 })
 route.put('/:id',(req,res)=>{
     up(req.params.id,req.body,(err,result)=>{
