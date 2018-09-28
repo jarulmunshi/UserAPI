@@ -37,9 +37,9 @@ exports.post1 = (body,done) =>{
     })
 }
 exports.get = (done) =>{
-    console.log("Hi");
+    //console.log("Hi");
     user.find().then((d)=>{
-        console.log(d)
+       // console.log(d)
         done(null,d);
     }).catch((err)=>{
         done(err);
@@ -55,7 +55,8 @@ exports.get1 = (id,done) =>{
     })
 }
 exports.del=(id,done)=>{
-    user.remove({_id:id}).then((d)=>{
+    //console.log(id);
+    user.remove({name:id}).then((d)=>{
         done(null,d);
     }).catch((err)=>{
         done(err);
@@ -64,15 +65,9 @@ exports.del=(id,done)=>{
 
 exports.up = (id,body,done)=>{
     //let b = pick(body,[name,age]);
-    user.findByIdAndUpdate(id,{$set:body}).then((d)=>{
-        if(d){
-            user.find({_id:id}).then((d1)=>{
-                done(null,d1);
-            }).catch((err)=>{
-                done(err)
-            })
-        }
-
+    //console.log("up method");
+    user.findOneAndUpdate({name:id},{$set:body}).then((d)=>{
+        done(null,d)
     }).catch((err)=>{
         done(err);
     })

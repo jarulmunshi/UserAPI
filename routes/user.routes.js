@@ -56,7 +56,7 @@ route.post('/login',(req,res)=>{
     })
 })
 route.get('/',(req,res)=>{
-    console.log("Route")
+    //console.log("Route")
     get((err,result)=>{
         if(err){
             res.statusCode=400;
@@ -89,24 +89,26 @@ route.get('/:id',(req,res)=>{
     })
 })
 route.delete('/:id',(req,res)=>{
-    console.log(req.params.id);
-    // del(req.params.id,(err,result)=>{
-    //     if(err){
-    //         res.statusCode=400;
-    //         res.json(err);
-    //     }
-    //     else if(result == null){
-    //         res.statusCode=404;
-    //         res.json({msg:"NOT DELETE"});
-    //     }
-    //     else {
-    //         res.statusCode=200;
-    //         res.json(result);
-    //     }
-    // })
+    //console.log(req.params.id);
+    del(req.params.id,(err,result)=>{
+        if(err){
+            res.statusCode=400;
+            res.json(err);
+        }
+        else if(result == null){
+            res.statusCode=404;
+            res.json({msg:"NOT DELETE"});
+        }
+        else {
+            res.statusCode=200;
+            res.json(result);
+        }
+    })
 })
 route.put('/:id',(req,res)=>{
+    console.log("Put");
     up(req.params.id,req.body,(err,result)=>{
+        console.log(req.params.id + "Hii");
         if(err){
             res.statusCode=400;
             res.json(err);
