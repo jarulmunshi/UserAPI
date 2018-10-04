@@ -2,7 +2,6 @@ var express=require('express');
 var app=express();
 var bodyparser = require('body-parser');
 
-const user=require('./schema/user.schema');
 const db =require('./config/database');
 const userRoute=require('./routes/user.routes');
 const multer = require('multer');

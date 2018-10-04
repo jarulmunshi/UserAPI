@@ -16,7 +16,7 @@ exports.insert=(body,path,done)=>{
     }).catch((err)=>{
         done(err);
     })
-}
+};
 exports.post1 = (body,done) =>{
     user.find({email:body.email,password:body.password}).then(d=>{
         console.log(Object.getOwnPropertyNames(d).length);
@@ -35,7 +35,7 @@ exports.post1 = (body,done) =>{
     }).catch(err=>{
         done(err);
     })
-}
+};
 exports.get = (done) =>{
     //console.log("Hi");
     user.find().then((d)=>{
@@ -44,7 +44,7 @@ exports.get = (done) =>{
     }).catch((err)=>{
         done(err);
     })
-}
+};
 exports.get1 = (id,done) =>{
     console.log(id);
     user.findById({_id:id}).then((d)=>{
@@ -53,7 +53,7 @@ exports.get1 = (id,done) =>{
     }).catch((err)=>{
         done(err);
     })
-}
+};
 exports.del=(id,done)=>{
     //console.log(id);
     user.remove({name:id}).then((d)=>{
@@ -61,7 +61,7 @@ exports.del=(id,done)=>{
     }).catch((err)=>{
         done(err);
     })
-}
+};
 
 exports.up = (id,body,done)=>{
     //let b = pick(body,[name,age]);
@@ -71,4 +71,4 @@ exports.up = (id,body,done)=>{
     }).catch((err)=>{
         done(err);
     })
-}
+};

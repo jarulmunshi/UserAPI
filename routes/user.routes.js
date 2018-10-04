@@ -1,8 +1,7 @@
-var router=require('express');
+const router=require('express');
 const route=router();
-var multer=require('multer');
-var fs=require('fs');
-var upload = multer({dest:'uploads/'});
+const multer=require('multer');
+// var upload = multer({dest:'uploads/'});
 const {insert,post1,get,get1,del,up} = require('../controller/user.controller');
 
 var storage = multer.diskStorage({
@@ -10,31 +9,40 @@ var storage = multer.diskStorage({
         cb(null, 'uploads/')
     },
     filename:(req, file, cb)=>{
-        cb(null, file.fieldname + '-' + Date.now() + '.jpg')
+        cb(null,Date.now() + file.originalname);
     }
 });
+// const upload=multer({
+//         dest:'uploads/'
+//     });
 
-var upload = multer({storage: storage}).any();
+// route.post('/',upload.single('image'),(req,res)=>{
+//    console.log("Done");
+// });
+
+var upload = multer({storage: storage}).single('image');
 route.post('/',(req,res)=>{
-    console.log(req.body);
+    // console.log(imageName);
+    //console.log(req.file);
     upload(req,res,(error)=>{
+        console.log("hi");
         insert(req.body,req.body.imageName,(err,result)=>{
             if(err){
                 res.statusCode=400;
                 res.json(err);
-            }
+             }
             else if(result == null){
                 res.statusCode=404;
                 res.json({msg:"error"});
             }
-            else{
+             else{
                 res.statusCode=200;
                 res.json(result);
             }
         })
-    })
+     })
 
-})
+});
 route.post('/login',(req,res)=>{
     post1(req.body,(err,result)=>{
         if (err){
@@ -50,11 +58,11 @@ route.post('/login',(req,res)=>{
         else {
             res.statusCode=200;
             //res.setHeader(token,result.token);
-            res.json(result.token);
-            console.log(result.token);
+            res.json(result);
+            //console.log(result.token);
         }
     })
-})
+});
 route.get('/',(req,res)=>{
     //console.log("Route")
     get((err,result)=>{
@@ -71,7 +79,7 @@ route.get('/',(req,res)=>{
             res.json(result);
         }
     })
-})
+});
 route.get('/:id',(req,res)=>{
     get1(req.params.id,(err,result)=>{
         if(err){
@@ -87,7 +95,7 @@ route.get('/:id',(req,res)=>{
             res.json(result);
         }
     })
-})
+});
 route.delete('/:id',(req,res)=>{
     //console.log(req.params.id);
     del(req.params.id,(err,result)=>{
@@ -104,11 +112,9 @@ route.delete('/:id',(req,res)=>{
             res.json(result);
         }
     })
-})
+});
 route.put('/:id',(req,res)=>{
-    console.log("Put");
     up(req.params.id,req.body,(err,result)=>{
-        console.log(req.params.id + "Hii");
         if(err){
             res.statusCode=400;
             res.json(err);
@@ -122,5 +128,5 @@ route.put('/:id',(req,res)=>{
             res.json(result);
         }
     })
-})
+});
 module.exports=route;
